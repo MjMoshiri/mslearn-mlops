@@ -13,10 +13,15 @@ from sklearn.model_selection import train_test_split
 
 # define functions
 def split_data(df):
-    X, y = (df[['Pregnancies','PlasmaGlucose','DiastolicBloodPressure','TricepsThickness','SerumInsulin','BMI','DiabetesPedigree','Age']].values,
+    X, y = (df[['Pregnancies', 'PlasmaGlucose', 'DiastolicBloodPressure',
+                'TricepsThickness', 'SerumInsulin', 'BMI',
+                'DiabetesPedigree', 'Age']].values,
             df['Diabetic'].values)
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=0)
+    X_train, X_test, y_train, y_test = (
+        train_test_split(X, y, test_size=0.30, random_state=0))
     return X_train, X_test, y_train, y_test
+
+
 def main(args):
     # TO DO: enable autologging
     mlflow.autolog()
@@ -45,7 +50,8 @@ def get_csvs_df(path):
 
 def train_model(reg_rate, X_train, X_test, y_train, y_test):
     # train model
-    LogisticRegression(C=1/reg_rate, solver="liblinear").fit(X_train, y_train)
+    (LogisticRegression(C=1 / reg_rate, solver="liblinear")
+     .fit(X_train, y_train))
 
 
 def parse_args():
@@ -63,6 +69,7 @@ def parse_args():
 
     # return args
     return args
+
 
 # run script
 if __name__ == "__main__":
